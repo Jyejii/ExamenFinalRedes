@@ -158,8 +158,51 @@ Cuando un dispositivo rebelde (por ejemplo, una terminal en la Base Eco) quiere 
  **Resultado:** 
   
   - Registro A   `holonet.rebelion.org = 192.0.2.42` <br>
--El registro A (Address) vincula un nombre de dominio con una dirección IPv4. 
+-El registro A (Address) vincula un nombre de dominio con una dirección IPv4.
 
 ## ¿Qué ocurre si el DNS falla?
 
 Si el DNS falla, aunque las redes estén comunicadas físicamente, no se podrían conectar, ya que no encontrarían las direcciones correspondientes a los nombres de dominio. La comunicación se volvería extremadamente difícil, tal como encontrar un Ewok en la noche de Endor.
+
+-----------------
+# Misión 4: “¡Es una trampa… de protocolos!” – TCP vs UDP en las transmisiones
+
+**Situación:** Durante la batalla espacial sobre Endor, los ingenieros de comunicación rebelde notan comportamientos distintos en las transmisiones de datos. Algunas comunicaciones deben ser **rápidas** aunque ocasionalmente se pierda información (por ejemplo, un stream de vídeo de una cámara X-Wing), mientras que otras deben llegar **íntegras y en orden** aunque tarden un poco más (por ejemplo, la transferencia de los planos de la Estrella de la Muerte). Estas diferencias corresponden al uso de distintos protocolos de transporte: **UDP** y **TCP**. Luke Skywalker, ahora piloteando su X-Wing y ejerciendo de líder en el ataque, te pregunta por qué percibe lagos de datos en unas transmisiones y retrasos en otras.
+
+**Narrativa:** En medio del fragor de la batalla, ves cómo R2-D2 proyecta diagramas de paquetes dentro del X-Wing de Luke. *"Algunas de estas tramas van rápidas como el Halcón Milenario, pero otras llegan seguras como Yoda al Consejo,"* comenta Luke por el comunicador, intentando comprender. Tú, desde la sala de control, le explicas que siente la diferencia entre los dos grandes protocolos de la capa de transporte.
+
+**Pregunta:** Compara los protocolos TCP y UDP y sus características en contexto de la transmisión de datos. ¿Por qué TCP se considera un protocolo **confiable y orientado a conexión**, y qué implica eso en cuanto a rendimiento? ¿Por qué UDP es **no confiable y sin conexión**, y en qué casos su rapidez resulta ventajosa?
+
+En tu respuesta, menciona ejemplos de aplicaciones o situaciones galácticas para cada protocolo: por ejemplo, qué tipo de datos enviarías mediante UDP durante una misión crítica, y cuál vía TCP en comunicaciones rutinarias. (Pista: TCP garantiza la entrega de datos completa y ordenada – ideal para transmitir planes estratégicos; UDP minimiza retrasos – útil para enviar coordenadas de combate en tiempo real, aunque alguna pueda perderse.).
+
+---
+
+**RESPUESTA:**
+
+| Característica                 | TCP                                                        | UDP                                                            |
+|--------------------------------|------------------------------------------------------------|----------------------------------------------------------------|
+| **Conexión** | Orientado a conexión: establece un canal antes de transmitir. | No orientado a conexión: envía directamente sin preparación.     |
+| **Confiabilidad** | Fiable: garantiza la entrega, el orden y sin duplicados.      | No fiable: no asegura recepción ni orden.                       |
+| **Control de flujo y congestión** | Sí: ajusta la velocidad según el receptor y la red.          | No: transmite sin considerar el estado del destino.             |
+| **Velocidad** | Más lento por sus mecanismos de verificación.               | Muy rápido, ideal para tiempo real.                             |
+| **Sobrecarga** | Mayor, debido a la gestión de estado y confirmaciones.       | Baja: cabeceras simples, sin gestión de estado.                 |
+| **Casos de uso ideales** | Transferencia de archivos, correos, navegación web.         | Streaming, juegos en línea, VoIP, datos en combate en tiempo real. |
+
+## ¿Por qué TCP es confiable y orientado a conexión?
+
+- Antes de enviar datos, TCP realiza un "handshake" (negociación de conexión).
+- Divide la información en segmentos, que numera, controla y reenvía si se pierden.
+- Garantiza que los datos lleguen completos y en orden.
+- Este nivel de control añade retraso y sobrecarga, pero es esencial cuando la precisión importa.
+
+**Ejemplo:** Transferir planos como posibles futuras naves es muy importante y tiene que realizarse de forma segura, por lo que se debería usar el Protocolo TCP.
+
+## ¿Por qué UDP es rápido y sin conexión?
+
+- No espera confirmación del receptor.
+- Los datos se envían como datagramas independientes.
+- Si un paquete se pierde, UDP no lo reenvía: el sistema lo ignora y sigue adelante.
+- Esto reduce la latencia y permite transmisión en tiempo real.
+
+**Ejemplo:** En mitad de una batalla, lo más importante es la velocidad, por lo que las coordenadas del enemigo se deben transferir en el protocolo UDP, ya que la rapidez es crucial en estas situaciones, aunque algún dato se pierda momentáneamente.
+
