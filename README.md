@@ -206,3 +206,61 @@ En tu respuesta, menciona ejemplos de aplicaciones o situaciones galácticas par
 
 **Ejemplo:** En mitad de una batalla, lo más importante es la velocidad, por lo que las coordenadas del enemigo se deben transferir en el protocolo UDP, ya que la rapidez es crucial en estas situaciones, aunque algún dato se pierda momentáneamente.
 
+-----------------
+
+# Misión 5: Comunicación Segura o Lado Oscuro – Criptografía y Seguridad de la Red
+
+**Situación:** La victoria rebelde depende de que sus comunicaciones permanezcan **secretas**. Se rumorea que espías imperiales (e incluso usuarios del lado oscuro) intentan interceptar los mensajes de la Alianza. La líder Mon Mothma te encomienda diseñar un protocolo de comunicación **cifrado** para que los mensajes entre bases rebeldes no puedan ser leídos por el Imperio aunque sean capturados.
+
+**Narrativa:** En la sala de guerra de la base rebelde, Mon Mothma se dirige a ti con semblante serio: *"Hemos logrado infiltrar agentes en Coruscant, pero comunicarse con ellos es arriesgado. El Imperio intercepta cualquier señal. Aprendiz, necesitamos que nuestras transmisiones sean indescifrables para el enemigo."* A tu lado, C-3PO comenta nerviosamente en más de seis millones de formas de comunicación: *"Si caemos en manos imperiales, prefiero que apaguen mis circuitos a revelar nuestros mensajes."*
+
+Recuerdas que **cifrar** es esencial: usar **claves secretas** para que sólo los rebeldes autorizados puedan leer un mensaje. También piensas en las dos formas en que esto se puede lograr: con **clave simétrica** (una misma clave secreta compartida) o con **claves públicas/privadas** (criptografía asimétrica). Es hora de demostrar tu conocimiento en seguridad.
+
+**Pregunta:** Explica brevemente la diferencia entre cifrado simétrico y cifrado asimétrico en el contexto de las comunicaciones de la Alianza. ¿Cómo funciona cada esquema y qué ventajas ofrece?
+
+Por ejemplo, si Leia y Luke comparten una frase clave secreta para cifrar sus holomensajes, ¿qué tipo de cifrado es ese? En cambio, si la Alianza quiere enviar un mensaje a un nuevo aliado sin haber intercambiado una clave secreta previamente, ¿cómo podría ayudar el cifrado asimétrico (claves pública/privada) en ese caso? Comenta también sobre la importancia de **autenticación** y **no repudio** en los mensajes (cómo podemos estar seguros de que el mensaje no ha sido alterado y proviene realmente de quien dice ser). Finalmente, menciona por qué utilizar un protocolo seguro (como **SSH** en lugar de Telnet) es crucial al administrar remotamente los equipos de la red rebelde.
+
+---
+
+**RESPUESTA:**
+
+## Cifrado Simétrico:
+
+- **Definición:** Se usa la misma clave secreta para cifrar y descifrar el mensaje.
+- **Funcionamiento:** Tanto el emisor como el receptor deben conocer y proteger esa clave compartida.
+- **Ejemplo rebelde:** Si Leia y Luke usan una frase clave secreta para proteger sus holomensajes, están usando cifrado simétrico.
+- **Ventajas:**
+    - Muy rápido y eficiente para cifrar grandes cantidades de datos.
+- **Desventaja:**
+    - La distribución de la clave es un riesgo: si alguien la intercepta, podrá leer todos los mensajes.
+
+## Cifrado Asimétrico (Clave Pública/Privada):
+
+- **Definición:** Utiliza un par de claves: una pública para cifrar y una privada para descifrar.
+- **Funcionamiento:**
+    - La clave pública se puede compartir abiertamente.
+    - Solo la persona con la clave privada correspondiente puede descifrar los mensajes.
+- **Ejemplo rebelde:** Si la Alianza quiere enviar un mensaje cifrado a un nuevo aliado sin haber compartido previamente una clave, usa su clave pública. Solo ese aliado, con su clave privada, podrá leer el mensaje.
+- **Ventajas:**
+    - Seguridad en la distribución: no es necesario compartir secretos de antemano.
+    - Permite autenticación y no repudio.
+
+## Autenticación y No Repudio en la Rebelión:
+
+- **Autenticación:** Nos asegura que el mensaje proviene de quien dice ser.
+    - En criptografía asimétrica, firmar digitalmente un mensaje con la clave privada permite que cualquier receptor lo verifique con la clave pública.
+- **No repudio:** El emisor no puede negar que envió el mensaje, ya que solo él tenía la clave para firmarlo.
+
+**Ejemplo:** Si Leia firma digitalmente los planos de una operación, y el mensaje es interceptado y modificado, la firma ya no coincidirá. Así, se puede verificar la integridad y autenticidad del mensaje.
+
+## Protocolos seguros: el escudo de la red rebelde
+
+- Usar protocolos seguros como SSH (Secure Shell) en lugar de Telnet (que transmite todo en texto claro) es crucial.
+- SSH cifra todas las comunicaciones entre el administrador y los equipos remotos.
+- Esto impide que los espías imperiales capten contraseñas o comandos durante el control de routers, servidores o sensores en el campo.
+
+**Ejemplo rebelde:** Administrar remotamente el sistema de escudos desde un puesto avanzado en Hoth usando Telnet sería una trampa. Cualquier infiltrado podría interceptar la señal. Usar SSH garantiza que ni Darth Vader pueda espiar la sesión.
+
+Con estas medidas, Mon Mothma, nuestras comunicaciones serán mucho más seguras contra las artimañas del Imperio y del lado oscuro. ¿Hay alguna otra forma en la que pueda asistir a la Alianza?
+
+
