@@ -13,6 +13,7 @@ https://github.com/Jyejii/ExamenFinalRedes.git
 Además, reserva una subred adicional para el **enlace troncal** con la antena de comunicaciones que conecta Hoth con el resto de la galaxia. Debes detallar la **dirección de red**, **máscara** y **rango de hosts** de cada subred resultante.
 
 **Pregunta:** ¿Cómo dividirías la red `172.16.0.0/24` en subredes para satisfacer las necesidades anteriores, asignando direcciones IP a cada segmento de la base? Indica las subredes obtenidas (con su notación de máscara `/xx`), la cantidad de hosts útiles en cada una, y especifica qué subred se destinaría al enlace troncal interplanetario.
+
 ----------------------------------------------------------
 **RESPUESTA:**
 <p>La red 172.16.0.0 tiene una máscara de subred /24, lo que significa que tenemos 24 bits para la parte de red y 8 bits para la parte de host. Esto nos da un total de $2^8 - 2 = 254$ hosts utilizables.</p>
@@ -117,3 +118,48 @@ A su lado, luces parpadeantes de un viejo router imperial recuperado iluminan tu
 - Requieren más memoria y CPU, por lo que son más complejos de implementar.
 
   Podemos concluir que con el enrutamiento dinámico se obtiene un control obsoluto de la red, por lo que va bien en redes pequeñas.Sin embargo en redes mas grandes es necesario usar el enrutamiento dinámico como el OSPF, ya que sino seria imposible de manejar.
+  
+  ------------------------
+  # Misión 3: Los Nombres del Holonet – DNS y Resolución de Nombres
+
+**Situación:** La flota rebelde ha interceptado transmisiones imperiales que mencionan distintos **códigos de planeta** y nombres en clave. Para coordinar un contraataque, la Alianza necesita entender cómo los nombres de dominio galácticos se traducen en localizaciones reales. En otras palabras, requieren restablecer un servicio **DNS** rebelde que asocie nombres de sistemas estelares con direcciones de la red. Sin DNS, comunicarse es tan difícil como encontrar un Ewok en la noche de Endor.
+
+**Narrativa:** A bordo de la nave de mando *Home One*, los técnicos rebelde te muestran un panel donde parpadea la petición “Unknown host”. El Almirante Ackbar frunce el ceño mientras exclama: *"¡Es una trampa... de nombres! Nuestros sistemas no reconocen las direcciones de destino."* Mon Mothma asiente con gravedad: *"Debemos reconstruir nuestro directorio de comunicaciones. Aprendiz, ¿cómo funciona este **Sistema de Nombres de Dominio** nuestro? ¿Por qué es tan importante?"*
+
+Tú recuerdas tus lecciones sobre cómo en la Red (o la HoloRed) se gestionan las direcciones simbólicas. Un nombre como “echo.base” debe traducirse a una dirección IP para establecer conexión. Ha llegado el momento de explicarlo claramente.
+
+**Pregunta:** Explica el funcionamiento básico del sistema DNS y su importancia en la comunicación en redes. ¿Cómo realiza la red rebelde (o cualquier red TCP/IP) la **resolución de nombres de dominio** a direcciones IP? Incluye en tu explicación qué es un **servidor DNS** y un **registro** (por ejemplo, un registro A), ilustrando con un ejemplo simple (por ejemplo: traducir `holonet.rebelion.org` a una dirección IP).
+
+-------------
+
+**RESPUESTA:**
+
+## ¿Qué es y cómo funciona el sistema DNS?
+
+El sistema DNS básicamente es un sistema jerárquico y distribuido que traduce nombres de dominios como `dns.google` a la IP `8.8.8.8`. Sin este sistema, tendríamos que saber cada IP de las páginas a las que queremos acceder.
+
+Su funcionamiento ocurre de la siguiente manera, por ejemplo, cuando alguien quiere conectarse a `www.youtube.com`:
+
+Cuando un dispositivo rebelde (por ejemplo, una terminal en la Base Eco) quiere conectarse a `holonet.rebelion.org`, se sigue el siguiente proceso:
+
+1.  **Consulta local:** El sistema primero revisa su caché DNS local o su archivo `hosts`.
+2.  **Petición al Servidor DNS:** Si no encuentra la respuesta localmente, la terminal pregunta a un servidor DNS configurado (por ejemplo, el DNS principal rebelde).
+3.  **Resolución recursiva:**
+    - El servidor DNS recorre la jerarquía del dominio:
+        - Pregunta a los servidores raíz (`.`)
+        - Luego al servidor de `.org`
+        - Después al servidor de `rebelion.org`
+4.  **Respuesta:** Finalmente, obtiene la dirección IP correspondiente, como `192.0.2.42`.
+5.  **Conexión:** La terminal puede ahora establecer conexión directa con el servidor de destino.
+
+## Ejemplo: Resolviendo un nombre rebelde
+
+ Nombre de dominio  `holonet.rebelion.org` 
+ **Resultado:** 
+  
+  - Registro A   `holonet.rebelion.org = 192.0.2.42` <br>
+-El registro A (Address) vincula un nombre de dominio con una dirección IPv4. 
+
+## ¿Qué ocurre si el DNS falla?
+
+Si el DNS falla, aunque las redes estén comunicadas físicamente, no se podrían conectar, ya que no encontrarían las direcciones correspondientes a los nombres de dominio. La comunicación se volvería extremadamente difícil, tal como encontrar un Ewok en la noche de Endor.
